@@ -1,0 +1,56 @@
+{
+"AWSTemplateFormatVersion": "2010-09-09",
+    "Description": "",
+    "Metadata": {
+
+    },
+    "Parameters": {
+        "VPCCiderBlock": {
+            "Description": "CIDR block for VPC",
+            "Type": "String",
+            "Default": "10.0.0.0/16"
+        },
+        "Sub1CiderBlock": {
+            "Description": "CIDR block for Subnet1",
+            "Type": "String"
+        },       
+        "AZs": {
+            "Description": "List of AZs",
+            "Type": "AWS::EC2::AvailabilityZone::Name"
+        }       
+    },
+    "Mappings": {
+
+    },
+    "Conditions": {
+
+    },
+    "Resources": {
+        
+        "myVPC01": {
+          "Type": "AWS::EC2::VPC",
+          "Properties": {
+            "CidrBlock": 
+            { "Ref": "VPCCiderBlock" },
+            "Tags":[
+            { "Key": "Name", "Value":  "custom VPC" }
+            ]
+          }
+        },
+        "prvsubnet01": {
+        "Type": "AWS::EC2::Subnet",
+        "Properties": {
+            "AvailabilityZone": { "Ref": "AZs" },
+            "VpcId": { "Ref": "myVPC01" },
+            "CidrBlock": 
+            { "Ref": "Sub1CiderBlock" },
+            "Tags": [
+            { "Key": "Name", "Value":  "Private subnet 1" }
+            ]
+        }
+        }
+    },
+    "Outputs": {
+
+    }
+}
